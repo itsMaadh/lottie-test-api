@@ -3,6 +3,8 @@ import { GraphQLModule } from '@nestjs/graphql';
 import { TypeOrmModule } from '@nestjs/typeorm';
 import { ConfigModule } from './config/config.module';
 import { ConfigService } from './config/config.service';
+import { Company } from './companies/entities/company.entity';
+import { CompaniesModule } from './companies/companies.module';
 
 @Module({
   imports: [
@@ -13,21 +15,18 @@ import { ConfigService } from './config/config.service';
       imports: [ConfigModule],
       inject: [ConfigService],
       useFactory: async (configService: ConfigService) => ({
-        // change based on database type you are using
-        // install the type first
-        type: 'YOUR DB TYPE',
+        type: 'postgres',
         host: configService.get('DATABASE_HOST'),
         port: Number(configService.get('DATABASE_PORT')),
         username: configService.get('DATABASE_USER'),
         password: configService.get('DATABASE_PASS'),
         database: configService.get('DATABASE'),
         synchronize: false,
-        entities: [],
-        // if you are connecting to mssql
-        options: { encrypt: true, enableArithAbort: true },
+        entities: [Company],
       }),
     }),
     ConfigModule,
+    CompaniesModule,
   ],
 })
 export class AppModule {}
