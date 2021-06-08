@@ -50,6 +50,7 @@ function getPagingParameters(args: ConnectionArgs) {
         limit: meta.first,
         offset: meta.after ? nextId(meta.after) : 0,
         filter: args.filter,
+        sort: args.sort,
       };
     }
     case 'backward': {
@@ -62,7 +63,7 @@ function getPagingParameters(args: ConnectionArgs) {
         offset = 0;
       }
 
-      return { offset, limit, filter: args.filter };
+      return { offset, limit, filter: args.filter, sort: args.sort };
     }
     default:
       return {};
@@ -90,6 +91,10 @@ export default class ConnectionArgs implements ConnectionArguments {
   @Field({ nullable: true, description: 'Search query' })
   @IsOptional()
   public filter?: string;
+
+  @Field({ nullable: true, description: 'Sort by' })
+  @IsOptional()
+  public sort?: string;
 
   pagingParams(): any {
     return getPagingParameters(this);
