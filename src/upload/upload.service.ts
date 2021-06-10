@@ -16,8 +16,10 @@ export class UploadService {
     const s3 = new S3({
       accessKeyId: this.configService.get('AWS_ACCESS_KEY'),
       secretAccessKey: this.configService.get('AWS_ACCESS_KEY_SECRET'),
+      signatureVersion: 'v4',
+      region: 'ap-southeast-1'
     });
-    const signedUrl = s3.getSignedUrl('getObject', {
+    const signedUrl = s3.getSignedUrl('putObject', {
       Bucket: this.configService.get('AWS_S3_BUCKET'),
       Key: `${filename}.json`,
       Expires: 3000,
