@@ -35,6 +35,8 @@ export class LottieService {
       : query;
     return await query
       .orderBy('lottieRepository.createdAt', 'DESC')
+      .take(limit)
+      .skip(offset)
       .getManyAndCount();
   }
 
