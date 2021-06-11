@@ -26,7 +26,7 @@ export class LottieService {
   ): Promise<[Lottie[], number]> {
     const query = this.lottieRepository.createQueryBuilder('lottieRepository');
     filter
-      ? query.where('lottieRepository.title like :filter', {
+      ? query.where('lottieRepository.title ilike :filter', {
           filter: `%${filter}%`,
         })
       : query;
