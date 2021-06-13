@@ -6,6 +6,7 @@ import S3url from './dto/s3url.object';
 export class UploadResolver {
   constructor(private readonly uploadService: UploadService) {}
 
+  // Query for S3 signed URL
   @Query(() => S3url, { name: 'signedUrl' })
   async getSignedUrl(): Promise<S3url> {
     return await this.uploadService.getSignedUrl();

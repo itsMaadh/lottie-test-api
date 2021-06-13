@@ -2,6 +2,7 @@ import { Module } from '@nestjs/common';
 import { ConfigService } from './config.service';
 
 @Module({
+  // Select different variables based on NODE_ENV
   providers: [
     {
       provide: ConfigService,

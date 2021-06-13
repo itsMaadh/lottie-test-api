@@ -10,6 +10,7 @@ import { connectionFromArraySlice } from 'graphql-relay';
 export class LottieResolver {
   constructor(private readonly lottieService: LottieService) {}
 
+  // Resolver for creating a new Lottie record
   @Mutation(() => Lottie)
   async createLottie(
     @Args('createLottieInput') createLottieInput: CreateLottieInput,
@@ -17,6 +18,7 @@ export class LottieResolver {
     return await this.lottieService.create(createLottieInput);
   }
 
+  // Paginated query for getting Lotties
   @Query(() => LottieResponse, { name: 'lotties' })
   async findAll(@Args() args: LottieConnectionArgs): Promise<LottieResponse> {
     const { limit, offset, filter, sort } = args.pagingParams();
@@ -33,6 +35,7 @@ export class LottieResolver {
     return { page, pageData: { count, limit, offset } };
   }
 
+  // Query for getting details of a specific lottie
   @Query(() => Lottie, { name: 'lottie' })
   async findOne(
     @Args('id', { type: () => String }) id: string,

@@ -10,6 +10,7 @@ export class CompaniesService {
     private readonly companyRepository: Repository<Company>,
   ) {}
 
+  // Querying the database and finding all companies
   async findAll(): Promise<Company[]> {
     return await this.companyRepository.find();
   }

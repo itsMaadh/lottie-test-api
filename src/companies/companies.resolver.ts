@@ -6,6 +6,7 @@ import { Company } from './entities/company.entity';
 export class CompaniesResolver {
   constructor(private readonly companiesService: CompaniesService) {}
 
+  // Resolver for fetching all companies that uses LottieFiles
   @Query(() => [Company], { name: 'companies' })
   async findAll(): Promise<Company[]> {
     return await this.companiesService.findAll();
